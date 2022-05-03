@@ -1,15 +1,15 @@
 ---
-title: Connect to Twilio from Azure Logic Apps
-description: Automate tasks and workflows that manage global SMS, MMS, and IP messages through your Twilio account by using Azure Logic Apps
+title: Connect to Twilio with Azure Logic Apps
+description: Automate tasks and workflows that manage global SMS, MMS, and IP messages through your Twilio account using Azure Logic Apps.
 services: logic-apps
 ms.suite: integration
-ms.reviewer: klam, logicappspm
-ms.topic: article
+ms.reviewer: estfan, azla
+ms.topic: how-to
 ms.date: 08/25/2018
 tags: connectors
 ---
 
-# Manage messages in Twilio with Azure Logic Apps
+# Connect to Twilio from Azure Logic Apps
 
 With Azure Logic Apps and the Twilio connector, 
 you can create automated tasks and workflows 
@@ -24,8 +24,8 @@ review [What is Azure Logic Apps?](../logic-apps/logic-apps-overview.md)
 
 ## Prerequisites
 
-* An Azure subscription. If you don't have an Azure subscription, 
-[sign up for a free Azure account](https://azure.microsoft.com/free/). 
+* An Azure account and subscription. If you don't have an Azure subscription, 
+[sign up for a free Azure account](https://azure.microsoft.com/free/?WT.mc_id=A261C142F).
 
 * From [Twilio](https://www.twilio.com/): 
 
@@ -89,7 +89,7 @@ review the connector's [reference page](/connectors/twilio/).
 
 ## Get support
 
-* For questions, visit the [Azure Logic Apps forum](https://social.msdn.microsoft.com/Forums/en-US/home?forum=azurelogicapps).
+* For questions, visit the [Microsoft Q&A question page for Azure Logic Apps](/answers/topics/azure-logic-apps.html).
 * To submit or vote on feature ideas, visit the [Logic Apps user feedback site](https://aka.ms/logicapps-wish).
 
 ## Next steps

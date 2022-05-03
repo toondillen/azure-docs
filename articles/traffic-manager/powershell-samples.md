@@ -6,7 +6,6 @@ documentationcenter: traffic-manager
 author: asudbring
 manager: twooley
 ms.service: traffic-manager
-ms.devlang: na
 ms.topic: article
 ms.tgt_pltfrm:
 ms.workload: infrastructure

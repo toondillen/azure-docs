@@ -1,93 +1,88 @@
 ---
 title: Release notes for Azure HDInsight 
-description: Latest release notes for Azure HDInsight. Get development tips and details for Hadoop, Spark, R Server, Hive, and more.
-author: hrasheed-msft
-ms.author: hrasheed
-ms.reviewer: jasonh
-ms.custom: hdinsightactive
+description: Latest release notes for Azure HDInsight. Get development tips and details for Hadoop, Spark, Hive, and more.
+ms.custom: references_regions
 ms.service: hdinsight
 ms.topic: conceptual
-ms.date: 01/24/2019
+ms.date: 03/10/2022
 ---
-# Release notes
+# Azure HDInsight release notes
 
 This article provides information about the **most recent** Azure HDInsight release updates. For information on earlier releases, see [HDInsight Release Notes Archive](hdinsight-release-notes-archive.md).
 
 ## Summary
 
 Azure HDInsight is one of the most popular services among enterprise customers for open-source analytics on Azure.
+If you would like to subscribe on release notes, watch releases on [this GitHub repository](https://github.com/hdinsight/release-notes/releases).
 
-## Release date: 01/09/2019
+## Release date: 03/10/2022
 
-This release applies both for HDInsight 3.6 and 4.0. HDInsight release is made available to all regions over several days. The release date here indicates the first region release date. If you don't see below changes, please wait for the release being live in your region in several days.
+This release applies for HDInsight 4.0. HDInsight release is made available to all regions over several days. The release date here indicates the first region release date. If you don't see below changes, wait for the release being live in your region over several days.
 
-> [!IMPORTANT]  
-> Linux is the only operating system used on HDInsight version 3.4 or greater. For more information, see [HDInsight versioning article](hdinsight-component-versioning.md).
+The OS versions for this release are: 
+- 	HDInsight 4.0: Ubuntu 18.04.5 
 
-## New features
-### TLS 1.2 enforcement
-Transport Layer Security (TLS) and Secure Sockets Layer (SSL) are cryptographic protocols that provide communications security over a computer network. Learn more about [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security#SSL_1.0.2C_2.0_and_3.0). HDInsight uses TLS 1.2 on public HTTPs endpoints but TLS 1.1 is still supported for backward compatibility. 
+## Spark 3.1 is now generally available
 
-With this release, customers can opt into TLS 1.2 only for all connections through the public cluster endpoint. To support this, the new property **minSupportedTlsVersion** is introduced and can be specified during cluster creation. If the property is not set, the cluster still supports TLS 1.0, 1.1 and 1.2, which is the same as today's behavior. Customers can set the value for this property to "1.2", which means that the cluster only supports TLS 1.2 and above. For more information, see [Plan a virtual network - Transport Layer Security](https://docs.microsoft.com/azure/hdinsight/hdinsight-plan-virtual-network-deployment#transport-layer-security).
+Spark 3.1 is now Generally Available on HDInsight 4.0 release.  This release includes 
 
-### Bring your own key for disk encryption
-All managed disks in HDInsight are protected with Azure Storage Service Encryption (SSE). Data on those disks is encrypted by Microsoft-managed keys by default. Starting from this release, you can Bring Your Own Key (BYOK) for disk encryption and manage it using Azure Key Vault. BYOK encryption is a one-step configuration during cluster creation with no additional cost. Just register HDInsight as a managed identity with Azure Key Vault and add the encryption key when you create your cluster. For more information, see [Customer-managed key disk encryption](https://docs.microsoft.com/azure/hdinsight/disk-encryption).
+* Adaptive Query Execution, 
+* Convert Sort Merge Join to Broadcast Hash Join, 
+* Spark Catalyst Optimizer,
+* Dynamic Partition Pruning, 
+* Customers will be able to create new Spark 3.1 clusters and not Spark 3.0 (preview) clusters.
 
-## Deprecation
-No deprecations for this release. To get ready for upcoming deprecations, see [Upcoming changes](#upcoming-changes).
+For more details, see the [Apache Spark 3.1](https://techcommunity.microsoft.com/t5/analytics-on-azure-blog/spark-3-1-is-now-generally-available-on-hdinsight/ba-p/3253679) is now Generally Available on HDInsight - Microsoft Tech Community.
 
-## Behavior changes
-No behavior changes for this release. To get ready for upcoming changes, see [Upcoming changes](#upcoming-changes).
+For a complete list of improvements, see the [Apache Spark 3.1 release notes.](https://spark.apache.org/releases/spark-release-3-1-2.html)
 
-## Upcoming changes
-The following changes will happen in upcoming releases. 
+For more details on migration, see the [migration guide.](https://spark.apache.org/docs/latest/migration-guide.html)
 
-### A minimum 4-core VM is required for Head Node 
-A minimum 4-core VM is required for Head Node to ensure the high availability and reliability of HDInsight clusters. Starting from April 6th 2020, customers can only choose 4-core or above VM as Head Node for the new HDInsight clusters. Existing clusters will continue to run as expected. 
+## Kafka 2.4 is now generally available
 
-### ESP Spark cluster node size change 
-In the upcoming release, the minimum allowed node size for ESP Spark cluster will be changed to Standard_D13_V2. 
-A-series VMs could cause ESP cluster issues because of relatively low CPU and memory capacity. A-series VMs will be deprecated for creating new ESP clusters.
+Kafka 2.4.1 is now Generally Available.  For more information, please see [Kafka 2.4.1 Release Notes.](http://kafka.apache.org/24/documentation.html) 
+Other features include MirrorMaker 2 availability, new metric category AtMinIsr topic partition, Improved broker start-up time by lazy on demand mmap of index files, More consumer metrics to observe user poll behavior.
 
-### Moving to Azure virtual machine scale sets
-HDInsight now uses Azure virtual machines to provision the cluster. In the upcoming release, HDInsight will use Azure virtual machine scale sets instead. See more about Azure virtual machine scale sets.
+## Map Datatype in HWC is now supported in HDInsight 4.0 
 
-### HBase 2.0 to 2.1
-In the upcoming HDInsight 4.0 release, HBase version will be upgraded from version 2.0 to 2.1.
+This release includes Map Datatype Support for HWC 1.0 (Spark 2.4) Via the spark-shell  application, and all other all spark clients that HWC supports. Following improvements are included like any other data types:
 
-## Bug fixes
-HDInsight continues to make cluster reliability and performance improvements. 
+A user can 
+*	Create a Hive table with any column(s) containing Map datatype, insert data into it and read the results from it.
+*	Create an Apache Spark dataframe with Map Type and do batch/stream reads and writes.
 
-## Component version change
-No component version change for this release. You could find the current component versions for HDInsight 4.0 ad HDInsight 3.6 here.
+### New regions
 
-## Known issues
+HDInsight has now expanded its geographical presence to two new regions: China East 3 and China North 3.
 
-As of January 24, 2020, there is an active issue in which you may receive an error when attempting to use a Jupyter notebook. Use the steps below to fix the issue. You can also refer to this [MSDN post](https://social.msdn.microsoft.com/Forums/en-us/8c763fb4-79a9-496f-a75c-44a125e934ac/hdinshight-create-not-create-jupyter-notebook?forum=hdinsight) or this [StackOverflow post](https://stackoverflow.com/questions/59687614/azure-hdinsight-jupyter-notebook-not-working/59831103) for up-to-date information, or to ask additional questions. This page will be updated when the issue is fixed.
+### OSS backport changes
 
-**Errors**
+OSS backports that are included in Hive including HWC 1.0 (Spark 2.4) which supports Map data type.
 
-* ValueError: Cannot convert notebook to v5 because that version doesn't exist
-* Error loading notebook An unknown error occurred while loading this notebook. This version can load notebook formats v4 or earlier
+### Here are the OSS backported Apache JIRAs for this release:
 
-**Cause** 
+| Impacted Feature    |   Apache JIRA                                                      |
+|---------------------|--------------------------------------------------------------------|
+| Metastore direct sql queries with IN/(NOT IN) should be split based on max parameters allowed by SQL DB   | [HIVE-25659](https://issues.apache.org/jira/browse/HIVE-25659)     |
+| Upgrade log4j 2.16.0 to 2.17.0                    | [HIVE-25825](https://issues.apache.org/jira/browse/HIVE-25825)     |
+| Update Flatbuffer version                    | [HIVE-22827](https://issues.apache.org/jira/browse/HIVE-22827)     |
+| Support Map data-type natively in Arrow format                    | [HIVE-25553](https://issues.apache.org/jira/browse/HIVE-25553)     |
+| LLAP external client - Handle nested values when the parent struct is null                    | [HIVE-25243](https://issues.apache.org/jira/browse/HIVE-25243)     |
+| Upgrade arrow version to 0.11.0                    | [HIVE-23987](https://issues.apache.org/jira/browse/HIVE-23987)     |
 
-The _version.py file on the cluster was updated to 5.x.x instead of 4.4.x.##.
+## Deprecation notices
+### Azure Virtual Machine Scale Sets on HDInsight  
 
-**Solution**
+HDInsight will no longer use Azure Virtual Machine Scale Sets to provision the clusters, no breaking change is expected. Existing HDInsight clusters on virtual machine scale sets will have no impact, any new clusters on latest images will no longer use Virtual Machine Scale Sets.  
 
-If you create a new Jupyter notebook and receive one of the errors listed above, perform the following steps to fix the issue.
+### Scaling of Azure HDInsight HBase workloads will now be supported only using manual scale
 
-1. Open Ambari in a web browser by going to https://CLUSTERNAME.azurehdinsight.net, where CLUSTERNAME is the name of your cluster.
-1. In Ambari, on the left menu, click **Jupyter**, then on **Service Actions**, click **Stop**.
-1. ssh into the cluster headnode where the Jupyter service is running.
-1. Open the following file /usr/bin/anaconda/lib/python2.7/site-packages/nbformat/_version.py in sudo mode.
-1. The existing entry should show something similar to the following code: 
+Starting from March 01, 2022, HDInsight will only support manual scale for HBase, there's no impact on running clusters.  New HBase clusters won't be able to enable schedule based Autoscaling.  For more information on how to  manually scale your HBase cluster, refer our documentation on [Manually scaling Azure HDInsight clusters](./hdinsight-scaling-best-practices.md)
 
-    version_info = (5, 0, 3)
+## HDInsight 3.6 end of support extension 
 
-    Modify the entry to: 
-    
-    version_info = (4, 4, 0)
-1. Save the file.
-1. Go back to Ambari, and in **Service Actions**, click **Restart All**.
+HDInsight 3.6 end of support is extended until September 30, 2022.
+
+Starting from September 30, 2022, customers can't create new HDInsight 3.6 clusters. Existing clusters will run as is without the support from Microsoft. Consider moving to HDInsight 4.0 to avoid potential system/support interruption.
+
+Customers who are on Azure HDInsight 3.6 clusters will continue to get [Basic support](./hdinsight-component-versioning.md#support-options-for-hdinsight-versions) until September 30, 2022. After September 30, 2022 customers won't be able to create new HDInsight 3.6 clusters.

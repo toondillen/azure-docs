@@ -2,7 +2,7 @@
 title: Resources without 800 count limit
 description: Lists the Azure resource types that can have more than 800 instances in a resource group.
 ms.topic: conceptual
-ms.date: 01/23/2020
+ms.date: 04/20/2022
 ---
 
 # Resources not limited to 800 instances per resource group
@@ -11,6 +11,12 @@ By default, you can deploy up to 800 instances of a resource type in each resour
 
 For some resource types, you need to contact support to have the 800 instance limit removed. Those resource types are noted in this article.
 
+Some resources have a limit on the number instances per region. This limit is different than the 800 instances per resource group. To check your instances per region, use the Azure portal. Select your subscription and **Usage + quotas** in the left pane. For more information, see [Check resource usage against limits](../../networking/check-usage-against-limits.md).
+
+## Microsoft.AlertsManagement
+
+* prometheusRuleGroups
+* smartDetectorAlertRules
 
 ## Microsoft.Automation
 
@@ -18,10 +24,10 @@ For some resource types, you need to contact support to have the 800 instance li
 
 ## Microsoft.AzureStack
 
+* linkedSubscriptions
 * registrations
 * registrations/customerSubscriptions
 * registrations/products
-* verificationKeys
 
 ## Microsoft.BotService
 
@@ -30,9 +36,14 @@ For some resource types, you need to contact support to have the 800 instance li
 ## Microsoft.Compute
 
 * disks
+* galleries
+* galleries/images
+* galleries/images/versions
 * images
 * snapshots
 * virtualMachines
+* virtualMachines/extensions
+* virtualMachineScaleSets - By default, limited to 800 instances. That limit can be increased by contacting support.
 
 ## Microsoft.ContainerInstance
 
@@ -41,13 +52,15 @@ For some resource types, you need to contact support to have the 800 instance li
 ## Microsoft.ContainerRegistry
 
 * registries/buildTasks
-* registries/buildTasks/listSourceRepositoryProperties
 * registries/buildTasks/steps
-* registries/buildTasks/steps/listBuildArguments
 * registries/eventGridFilters
 * registries/replications
 * registries/tasks
 * registries/webhooks
+
+## Microsoft.D365CustomerInsights
+
+* instances
 
 ## Microsoft.DBforMariaDB
 
@@ -55,17 +68,26 @@ For some resource types, you need to contact support to have the 800 instance li
 
 ## Microsoft.DBforMySQL
 
+* flexibleServers
 * servers
 
 ## Microsoft.DBforPostgreSQL
 
+* flexibleServers
 * serverGroups
+* serverGroupsv2
 * servers
 * serversv2
 
-## Microsoft.EnterpriseKnowledgeGraph
+## Microsoft.DevTestLab
 
-* services
+* labs/virtualMachines - By default, limited to 800 instances. That limit can be increased by contacting support.
+* schedules
+
+## Microsoft.EdgeOrder
+
+* orderItems
+* orders
 
 ## Microsoft.EventHub
 
@@ -78,17 +100,26 @@ For some resource types, you need to contact support to have the 800 instance li
 
 ## Microsoft.GuestConfiguration
 
-* autoManagedVmConfigurationProfiles
-* configurationProfileAssignments
 * guestConfigurationAssignments
-* software
-* softwareUpdateProfile
-* softwareUpdates
+
+## Microsoft.HybridCompute
+
+* machines - Supports up to 5,000 instances.
+* machines/extensions
+
+## microsoft.insights
+
+* metricalerts
+* scheduledqueryrules
 
 ## Microsoft.Logic
 
 * integrationAccounts
 * workflows
+
+## Microsoft.Media
+
+* mediaservices/liveEvents
 
 ## Microsoft.NetApp
 
@@ -97,87 +128,121 @@ For some resource types, you need to contact support to have the 800 instance li
 * netAppAccounts/capacityPools/volumes
 * netAppAccounts/capacityPools/volumes/mountTargets
 * netAppAccounts/capacityPools/volumes/snapshots
+* netAppAccounts/capacityPools/volumes/subvolumes
+* netAppAccounts/capacityPools/volumes/volumeQuotaRules
+* netAppAccounts/snapshotPolicies
+* netAppAccounts/volumeGroups
 
 ## Microsoft.Network
 
 * applicationGatewayWebApplicationFirewallPolicies
 * applicationSecurityGroups
 * bastionHosts
+* customIpPrefixes
 * ddosProtectionPlans
+* dnsForwardingRulesets
+* dnsForwardingRulesets/forwardingRules
+* dnsForwardingRulesets/virtualNetworkLinks
+* dnsResolvers
+* dnsResolvers/inboundEndpoints
+* dnsResolvers/outboundEndpoints
 * dnszones
 * dnszones/A
 * dnszones/AAAA
+* dnszones/all
 * dnszones/CAA
 * dnszones/CNAME
 * dnszones/MX
 * dnszones/NS
 * dnszones/PTR
+* dnszones/recordsets
 * dnszones/SOA
 * dnszones/SRV
 * dnszones/TXT
-* dnszones/all
-* dnszones/recordsets
+* expressRouteCrossConnections
 * networkIntentPolicies
 * networkInterfaces
+* networkSecurityGroups
 * privateDnsZones
 * privateDnsZones/A
 * privateDnsZones/AAAA
+* privateDnsZones/all
 * privateDnsZones/CNAME
 * privateDnsZones/MX
 * privateDnsZones/PTR
 * privateDnsZones/SOA
 * privateDnsZones/SRV
 * privateDnsZones/TXT
-* privateDnsZones/all
 * privateDnsZones/virtualNetworkLinks
+* privateEndpointRedirectMaps
 * privateEndpoints
 * privateLinkServices
-* publicIPAddresses - By default, limited to 800 instances. That limit can be increased by contacting support.
+* publicIPAddresses
 * serviceEndpointPolicies
 * trafficmanagerprofiles
+* virtualNetworks/privateDnsZoneLinks
 * virtualNetworkTaps
-
-## Microsoft.PortalSdk
-
-* rootResources
 
 ## Microsoft.PowerBI
 
 * workspaceCollections - By default, limited to 800 instances. That limit can be increased by contacting support.
 
+## Microsoft.PowerBIDedicated
+
+* autoScaleVCores - By default, limited to 800 instances. That limit can be increased by contacting support.
+* capacities - By default, limited to 800 instances. That limit can be increased by contacting support.
+
 ## Microsoft.Relay
 
 * namespaces
-
-## Microsoft.Scheduler
-
-* jobcollections
 
 ## Microsoft.ServiceBus
 
 * namespaces
 
-## Microsoft.ServiceFabricMesh
+## Microsoft.Singularity
 
-* applications
-* containerGroups
-* gateways
-* networks
-* secrets
-* volumes
+* accounts
+* accounts/accountQuotaPolicies
+* accounts/groupPolicies
+* accounts/jobs
+* accounts/models
+* accounts/networks
+* accounts/storageContainers
+
+## Microsoft.Sql
+
+* instancePools
+* managedInstances
+* managedInstances/databases
+* managedInstances/metricDefinitions
+* managedInstances/metrics
+* managedInstances/sqlAgent
+* servers
+* servers/databases
+* servers/databases/databaseState
+* servers/elasticpools
+* servers/jobAccounts
+* servers/jobAgents
+* virtualClusters
 
 ## Microsoft.Storage
 
 * storageAccounts
 
+## Microsoft.StoragePool
+
+* diskPools
+* diskPools/iscsiTargets
+
+## Microsoft.StreamAnalytics
+
+* streamingjobs - By default, limited to 800 instances. That limit can be increased by contacting support.
+
 ## Microsoft.Web
 
 * apiManagementAccounts/apis
 * sites
-
-## microsoft.insights
-
-* metricalerts
 
 ## Next steps
 

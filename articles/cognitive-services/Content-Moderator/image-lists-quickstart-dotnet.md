@@ -8,10 +8,11 @@ manager: nitinme
 
 ms.service: cognitive-services
 ms.subservice: content-moderator
-ms.topic: conceptual
+ms.topic: how-to
 ms.date: 10/24/2019
 ms.author: pafarley
-#As a C# developer of content-providing software, I want to check images against a custom list of inappropriate images so that I can handle them more efficiently.
+ms.custom: devx-track-csharp
+#Customer intent: As a C# developer of content-providing software, I want to check images against a custom list of inappropriate images so that I can handle them more efficiently.
 ---
 
 # Moderate with custom image lists in C#
@@ -33,11 +34,11 @@ the [Content Moderator SDK for .NET](https://www.nuget.org/packages/Microsoft.Az
 The console application for this guide simulates some of the tasks you
 can perform with the image list API.
 
-If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free/?WT.mc_id=A261C142F) before you begin. 
+If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free/cognitive-services/) before you begin. 
 
 ## Sign up for Content Moderator services
 
-Before you can use Content Moderator services through the REST API or the SDK, you'll need an API subscription key. Subscribe to Content Moderator service in the [Azure portal](https://ms.portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator) to obtain it.
+Before you can use Content Moderator services through the REST API or the SDK, you'll need an API subscription key. Subscribe to Content Moderator service in the [Azure portal](https://portal.azure.com/#create/Microsoft.CognitiveServicesContentModerator) to obtain it.
 
 ## Create your Visual Studio project
 

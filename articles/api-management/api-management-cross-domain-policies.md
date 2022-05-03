@@ -1,22 +1,18 @@
 ---
 title: Azure API Management cross domain policies | Microsoft Docs
-description: Learn about the cross domain policies available for use in Azure API Management.
+description: Reference for the cross domain policies available for use in Azure API Management. Provides policy usage, settings, and examples.
 services: api-management
-documentationcenter: ''
-author: vladvino
-manager: erikre
-editor: ''
+author: dlepow
 
-ms.assetid: 7689d277-8abe-472a-a78c-e6d4bd43455d
 ms.service: api-management
-ms.workload: mobile
-ms.tgt_pltfrm: na
-ms.topic: article
-ms.date: 11/28/2017
-ms.author: apimpm
+ms.topic: reference
+ms.date: 03/07/2022
+ms.author: danlep
 ---
 # API Management cross domain policies
-This topic provides a reference for the following API Management policies. For information on adding and configuring policies, see [Policies in API Management](https://go.microsoft.com/fwlink/?LinkID=398186).
+This article provides a reference for API Management policies used to enable cross domain calls from different clients. 
+
+[!INCLUDE [api-management-policy-intro-links](../../includes/api-management-policy-intro-links.md)]
 
 ## <a name="CrossDomainPolicies"></a> Cross domain policies
 
@@ -27,12 +23,15 @@ This topic provides a reference for the following API Management policies. For i
 ## <a name="AllowCrossDomainCalls"></a> Allow cross-domain calls
 Use the `cross-domain` policy to make the API accessible from Adobe Flash and Microsoft Silverlight browser-based clients.
 
+[!INCLUDE [api-management-policy-generic-alert](../../includes/api-management-policy-generic-alert.md)]
+
+
 ### Policy statement
 
 ```xml
 <cross-domain>
     <!-Policy configuration is in the Adobe cross-domain policy file format,
-        see https://www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html-->
+        see https://www.adobe.com/devnet-docs/acrobatetk/tools/AppSec/CrossDomain_PolicyFile_Specification.pdf-->
 </cross-domain>
 ```
 
@@ -40,9 +39,9 @@ Use the `cross-domain` policy to make the API accessible from Adobe Flash and Mi
 
 ```xml
 <cross-domain>
-    <cross-domain>
+    <cross-domain-policy>
         <allow-http-request-headers-from domain='*' headers='*' />
-    </cross-domain>
+    </cross-domain-policy>
 </cross-domain>
 ```
 
@@ -50,23 +49,33 @@ Use the `cross-domain` policy to make the API accessible from Adobe Flash and Mi
 
 |Name|Description|Required|
 |----------|-----------------|--------------|
-|cross-domain|Root element. Child elements must conform to the [Adobe cross-domain policy file specification](https://www.adobe.com/devnet/articles/crossdomain_policy_file_spec.html).|Yes|
+|cross-domain|Root element. Child elements must conform to the [Adobe cross-domain policy file specification](https://www.adobe.com/devnet-docs/acrobatetk/tools/AppSec/CrossDomain_PolicyFile_Specification.pdf).|Yes|
 
 ### Usage
-This policy can be used in the following policy [sections](https://azure.microsoft.com/documentation/articles/api-management-howto-policies/#sections) and [scopes](https://azure.microsoft.com/documentation/articles/api-management-howto-policies/#scopes).
+This policy can be used in the following policy [sections](./api-management-howto-policies.md#sections) and [scopes](./api-management-howto-policies.md#scopes).
 
 - **Policy sections:** inbound
-- **Policy scopes:** all scopes
+- **Policy scopes:** global
 
 ## <a name="CORS"></a> CORS
-The `cors` policy adds cross-origin resource sharing (CORS) support to an operation or an API to allow cross-domain calls from browser-based clients.
+The `cors` policy adds cross-origin resource sharing (CORS) support to an operation or an API to allow cross-domain calls from browser-based clients. 
+
+> [!NOTE]
+> If request matches an operation with an OPTIONS method defined in the API, pre-flight request processing logic associated with CORS policies will not be executed. Therefore, such operations can be used to implement custom pre-flight processing logic.
+
+> [!IMPORTANT]
+> If you configure the CORS policy at the product scope, and your API uses subscription key authentication, the policy will only work when requests include a subscription key as a query parameter. 
 
 CORS allows a browser and a server to interact and determine whether or not to allow specific cross-origin requests (i.e. XMLHttpRequests calls made from JavaScript on a web page to other domains). This allows for more flexibility than only allowing same-origin requests, but is more secure than allowing all cross-origin requests.
+
+You need to apply the CORS policy to enable the interactive console in the developer portal. Refer to the [developer portal documentation](./developer-portal-faq.md#cors) for details.
+
+[!INCLUDE [api-management-policy-form-alert](../../includes/api-management-policy-form-alert.md)]
 
 ### Policy statement
 
 ```xml
-<cors allow-credentials="false|true">
+<cors allow-credentials="false|true" terminate-unmatched-request="true|false">
     <allowed-origins>
         <origin>origin uri</origin>
     </allowed-origins>
@@ -83,7 +92,7 @@ CORS allows a browser and a server to interact and determine whether or not to a
 ```
 
 ### Example
-This example demonstrates how to support pre-flight requests, such as those with custom headers or methods other than GET and POST. To support custom headers and additional HTTP verbs, use the `allowed-methods` and `allowed-headers` sections as shown in the following example.
+This example demonstrates how to support [pre-flight requests](https://developer.mozilla.org/docs/Web/HTTP/CORS#preflighted_requests), such as those with custom headers or methods other than GET and POST. To support custom headers and additional HTTP verbs, use the `allowed-methods` and `allowed-headers` sections as shown in the following example.
 
 ```xml
 <cors allow-credentials="true">
@@ -122,7 +131,7 @@ This example demonstrates how to support pre-flight requests, such as those with
 |cors|Root element.|Yes|N/A|
 |allowed-origins|Contains `origin` elements that describe the allowed origins for cross-domain requests. `allowed-origins` can contain either a single `origin` element that specifies `*` to allow any origin, or one or more `origin` elements that contain a URI.|Yes|N/A|
 |origin|The value can be either `*` to allow all origins, or a URI that specifies a single origin. The URI must include a scheme, host, and port.|Yes|If the port is omitted in a URI, port 80 is used for HTTP and port 443 is used for HTTPS.|
-|allowed-methods|This element is required if methods other than GET or POST are allowed. Contains `method` elements that specify the supported HTTP verbs.|No|If this section is not present, GET and POST are supported.|
+|allowed-methods|This element is required if methods other than GET or POST are allowed. Contains `method` elements that specify the supported HTTP verbs. The value `*` indicates all methods.|No|If this section is not present, GET and POST are supported.|
 |method|Specifies an HTTP verb.|At least one `method` element is required if the `allowed-methods` section is present.|N/A|
 |allowed-headers|This element contains `header` elements specifying names of the headers that can be included in the request.|No|N/A|
 |expose-headers|This element contains `header` elements specifying names of the headers that will be accessible by the client.|No|N/A|
@@ -132,17 +141,20 @@ This example demonstrates how to support pre-flight requests, such as those with
 
 |Name|Description|Required|Default|
 |----------|-----------------|--------------|-------------|
-|allow-credentials|The `Access-Control-Allow-Credentials` header in the preflight response will be set to the value of this attribute and affect the client’s ability to submit credentials in cross-domain requests.|No|false|
-|preflight-result-max-age|The `Access-Control-Max-Age` header in the preflight response will be set to the value of this attribute and affect the user agent’s ability to cache pre-flight response.|No|0|
+|allow-credentials|The `Access-Control-Allow-Credentials` header in the preflight response will be set to the value of this attribute and affect the client's ability to submit credentials in cross-domain requests.|No|false|
+|terminate-unmatched-request|This attribute controls the processing of cross-origin requests that don't match the CORS policy settings. When OPTIONS request is processed as a pre-flight request and doesn't match CORS policy settings: If the attribute is set to `true`, immediately terminate the request with an empty 200 OK response; If the attribute is set to `false`, check inbound for other in-scope CORS policies that are direct children of the inbound element and apply them.  If no CORS policies are found, terminate the request with an empty 200 OK response. When GET or HEAD request includes the Origin header (and therefore is processed as a cross-origin request) and doesn't match CORS policy settings: If the attribute is set to `true`, immediately terminate the request with an empty 200 OK response; If the attribute is set to `false`, allow the request to proceed normally and don't add CORS headers to the response.|No|true|
+|preflight-result-max-age|The `Access-Control-Max-Age` header in the preflight response will be set to the value of this attribute and affect the user agent's ability to cache pre-flight response.|No|0|
 
 ### Usage
-This policy can be used in the following policy [sections](https://azure.microsoft.com/documentation/articles/api-management-howto-policies/#sections) and [scopes](https://azure.microsoft.com/documentation/articles/api-management-howto-policies/#scopes).
+This policy can be used in the following policy [sections](./api-management-howto-policies.md#sections) and [scopes](./api-management-howto-policies.md#scopes).
 
 - **Policy sections:** inbound
 - **Policy scopes:** all scopes
 
 ## <a name="JSONP"></a> JSONP
 The `jsonp` policy adds JSON with padding (JSONP) support to an operation or an API to allow cross-domain calls from JavaScript browser-based clients. JSONP is a method used in JavaScript programs to request data from a server in a different domain. JSONP bypasses the limitation enforced by most web browsers where access to web pages must be in the same domain.
+
+[!INCLUDE [api-management-policy-generic-alert](../../includes/api-management-policy-generic-alert.md)]
 
 ### Policy statement
 
@@ -156,9 +168,9 @@ The `jsonp` policy adds JSON with padding (JSONP) support to an operation or an 
 <jsonp callback-parameter-name="cb" />
 ```
 
-If you call the method without the callback parameter ?cb=XXX it will return plain JSON (without a function call wrapper).
+If you call the method without the callback parameter `?cb=XXX`, it will return plain JSON (without a function call wrapper).
 
-If you add the callback parameter `?cb=XXX` it will return a JSONP result, wrapping the original JSON results around the callback function like `XYZ('<json result goes here>');`
+If you add the callback parameter `?cb=XXX`, it will return a JSONP result, wrapping the original JSON results around the callback function like `XYZ('<json result goes here>');`
 
 ### Elements
 
@@ -173,16 +185,9 @@ If you add the callback parameter `?cb=XXX` it will return a JSONP result, wrapp
 |callback-parameter-name|The cross-domain JavaScript function call prefixed with the fully qualified domain name where the function resides.|Yes|N/A|
 
 ### Usage
-This policy can be used in the following policy [sections](https://azure.microsoft.com/documentation/articles/api-management-howto-policies/#sections) and [scopes](https://azure.microsoft.com/documentation/articles/api-management-howto-policies/#scopes).
+This policy can be used in the following policy [sections](./api-management-howto-policies.md#sections) and [scopes](./api-management-howto-policies.md#scopes).
 
 - **Policy sections:** outbound
 - **Policy scopes:** all scopes
 
-## Next steps
-
-For more information working with policies, see:
-
-+ [Policies in API Management](api-management-howto-policies.md)
-+ [Transform APIs](transform-api.md)
-+ [Policy Reference](api-management-policy-reference.md) for a full list of policy statements and their settings
-+ [Policy samples](policy-samples.md)
+[!INCLUDE [api-management-policy-ref-next-steps](../../includes/api-management-policy-ref-next-steps.md)]

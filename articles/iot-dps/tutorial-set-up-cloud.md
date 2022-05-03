@@ -1,8 +1,8 @@
 ---
 title: Tutorial - Set up cloud for Azure IoT Hub Device Provisioning Service in portal
 description: This tutorial shows how you can set up the cloud resources for device provisioning in the [Azure portal](https://portal.azure.com) using the IoT Hub Device Provisioning Service (DPS)
-author: wesmc7777
-ms.author: wesmc
+author: kgremban
+ms.author: kgremban
 ms.date: 11/12/2019
 ms.topic: tutorial
 ms.service: iot-dps
@@ -22,7 +22,7 @@ This tutorial shows how to set up the cloud for automatic device provisioning us
 
 If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free/) before you begin.
 
-## Sign in to the Azure portal
+## Prerequisites
 
 Sign in to the [Azure portal](https://portal.azure.com/).
 
@@ -43,9 +43,9 @@ Follow these steps to create a new Device Provisioning Service instance.
    | **Name** | Any unique name | -- | 
    | **Subscription** | Your subscription  | For details about your subscriptions, see [Subscriptions](https://account.windowsazure.com/Subscriptions). |
    | **Resource group** | myResourceGroup | For valid resource group names, see [Naming rules and restrictions](/azure/architecture/best-practices/resource-naming). |
-   | **Location** | Any valid location | For information about regions, see [Azure Regions](https://azure.microsoft.com/regions/). |   
+   | **Location** | Any valid location | For information about regions, see [Azure Regions](https://azure.microsoft.com/regions/).  For resiliency and reliability, we recommend deploying to one of the regions that support [Availability Zones](iot-dps-ha-dr.md). |
 
-   ![Enter basic information about your Device Provisioning service in the portal](./media/tutorial-set-up-cloud/create-iot-dps-portal.png)
+   ![Enter basic information about your Device Provisioning Service in the portal](./media/tutorial-set-up-cloud/create-iot-dps-portal.png)
 
 5. Click **Create**. After a few moments, the Device Provisioning Service instance is created and the **Overview** page is displayed.
 
@@ -115,7 +115,7 @@ In this tutorial, you learned how to:
 > * Link the IoT hub to the Device Provisioning Service
 > * Set the allocation policy on the Device Provisioning Service
 
-Advance to the next tutorial to learn how to set up your device for provisioning.
+Advance to the next tutorial to learn how to set up your device for provisioning
 
 > [!div class="nextstepaction"]
 > [Set up device for provisioning](tutorial-set-up-device.md)

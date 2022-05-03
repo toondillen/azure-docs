@@ -1,53 +1,57 @@
 ---
 title: "Quickstart: Speech SDK for Java (Windows, Linux, macOS) platform setup - Speech service"
 titleSuffix: Azure Cognitive Services
-description: Use this guide to set up your platform for using Java (Windows, Linux, macOS) with the Speech service SDK.
+description: Use this guide to set up your platform for using Java (Windows, Linux, macOS) with the Speech SDK.
 services: cognitive-services
 author: markamos
 manager: nitinme
 ms.service: cognitive-services
 ms.subservice: speech-service
 ms.topic: include
-ms.date: 10/11/2019
-ms.author: erhopf
+ms.date: 10/15/2020
+ms.custom: devx-track-java
+ms.author: eur
 ---
 
-This guide shows how to install the [Speech SDK](~/articles/cognitive-services/speech-service/speech-sdk.md) for 64-bit Java 8 JRE.
-
-> [!NOTE]
-> For the Speech Devices SDK and the Roobo device, see [Speech Devices SDK](~/articles/cognitive-services/speech-service/speech-devices-sdk.md).
+This guide shows how to install the [Speech SDK](~/articles/cognitive-services/speech-service/speech-sdk.md) for Java. If you just want the package name to get started on your own, the Java SDK is not available in the Maven central repository. Whether you're using Gradle or a *pom.xml* dependency file, you need to add a custom repository that points to `https://azureai.azureedge.net/maven/`. (See below for the package name.)
 
 [!INCLUDE [License Notice](~/includes/cognitive-services-speech-service-license-notice.md)]
 
 ## Supported operating systems
 
-- The Java Speech SDK package is available for these operating systems:
-  - Windows: 64-bit only
-  - Mac: macOS X version 10.13 or later
-  - Linux: 64-bit only on Ubuntu 16.04, Ubuntu 18.04, or Debian 9
+The Java Speech SDK package is available for these operating systems:
+
+- Windows: 64-bit only.
+- Mac: macOS X version 10.14 or later.
+- Linux: See the list of [supported Linux distributions and target architectures](~/articles/cognitive-services/speech-service/speech-sdk.md).
 
 ## Prerequisites
 
-- [Java 8](https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html) or [JDK 8](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- [Azul Zulu OpenJDK](https://www.azul.com/downloads/?package=jdk). The [Microsoft Build of OpenJDK](https://www.microsoft.com/openjdk) or your preferred JDK should also work. 
 
-- [Eclipse Java IDE](https://www.eclipse.org/downloads/) (requires Java already installed)
-- Supported Linux platforms will require certain libraries installed (`libssl` for secure sockets layer support and `libasound2` for sound support). Refer to your distribution below for the commands needed to install the correct versions of these libraries.
+- [Eclipse Java IDE](https://www.eclipse.org/downloads/). This IDE requires Java to already be installed.
 
-  - On Ubuntu, run the following commands to install the required packages:
+- [Microsoft Visual C++ Redistributable for Visual Studio 2019](https://support.microsoft.com/topic/the-latest-supported-visual-c-downloads-2647da03-1eea-4433-9aff-95f26a218cc0) for the Windows platform. Installing it for the first time might require a restart.
 
-        ```sh
-        sudo apt-get update
-        sudo apt-get install build-essential libssl1.0.0 libasound2
-        ```
+- For Linux, see the [system requirements and setup instructions](~/articles/cognitive-services/speech-service/speech-sdk.md#get-the-speech-sdk).
 
-  - On Debian 9, run the following commands to install the required packages:
+## Gradle configurations
 
-        ```sh
-        sudo apt-get update
-        sudo apt-get install build-essential libssl1.0.2 libasound2
-        ```
+Gradle configurations require both a custom repository and an explicit reference to the .jar dependency extension:
 
-- On Windows, you need the [Microsoft Visual C++ Redistributable for Visual Studio 2019](https://support.microsoft.com/help/2977003/the-latest-supported-visual-c-downloads) for your platform. Note that installing this for the first time may require you to restart Windows before continuing with this guide.
+```groovy
+// build.gradle
+
+repositories {
+    maven {
+        url "https://azureai.azureedge.net/maven/"
+    }
+}
+
+dependencies {
+    implementation group: 'com.microsoft.cognitiveservices.speech', name: 'client-sdk', version: "1.21.0", ext: "jar"
+}
+```
 
 ## Create an Eclipse project and install the Speech SDK
 

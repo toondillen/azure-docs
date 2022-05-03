@@ -2,61 +2,92 @@
 title: Reduce service costs using Azure Advisor
 description: Use Azure Advisor to optimize the cost of your Azure deployments.
 ms.topic: article
-ms.date: 01/29/2019
+ms.date: 10/29/2021
 
 ---
 
-# Reduce service costs using Azure Advisor
+# Reduce service costs by using Azure Advisor
 
-Advisor helps you optimize and reduce your overall Azure spend by identifying idle and underutilized resources. You can get cost recommendations from the **Cost** tab on the Advisor dashboard.
+Azure Advisor helps you optimize and reduce your overall Azure spend by identifying idle and underutilized resources. You can get cost recommendations from the **Cost** tab on the Advisor dashboard.
 
-## Optimize virtual machine spend by resizing or shutting down underutilized instances 
-
-Although certain application scenarios can result in low utilization by design, you can often save money by managing the size and number of your virtual machines. Advisor advanced evaluation models considers virtual machines for shut-down when P95th of the max of max value of CPU utilization is less than 3% and network utilization is less than 2% over a 7 day period. Virtual machines are considered for right size when it is possible to fit the current load in a smaller SKU (within the same SKU family) or a smaller number # of instance such that the current load doesn’t go over 80% utilization when non-user facing workloads and not above 40% when user-facing workload. Here, the type of workload is determined by analyzing the CPU utilization characteristics of the workload.
-
-The recommended actions are shut-down or resize, specific to resource being recommended for. Advisor shows you the estimated cost savings for either recommended actions - resize or shut-down. Also, for resize recommended action, Advisor provides current and target SKU information. 
-
-If you want to be more aggressive at identifying underutilized virtual machines, you can adjust the CPU utilization rule on a per subscription basis.
-
-## Reduce costs by eliminating unprovisioned ExpressRoute circuits
-
-Advisor identifies ExpressRoute circuits that have been in the provider status of *Not Provisioned* for more than one month, and recommends deleting the circuit if you aren't planning to provision the circuit with your connectivity provider.
-
-## Reduce costs by deleting or reconfiguring idle virtual network gateways
-
-Advisor identifies virtual network gateways that have been idle for over 90 days. Since these gateways are billed hourly, you should consider reconfiguring or deleting them if you don't intend to use them anymore. 
-
-## Buy reserved virtual machine instances to save money over pay-as-you-go costs
-
-Advisor will review your virtual machine usage over the last 30 days and determine if you could save money by purchasing an Azure reservation. Advisor will show you the regions and sizes where you potentially have the most savings and will show you the estimated savings from purchasing reservations. With Azure reservations, you can pre-purchase the base costs for your virtual machines. Discounts will automatically apply to new or existing VMs that have the same size and region as your reservations. [Learn more about Azure Reserved VM Instances.](https://azure.microsoft.com/pricing/reserved-vm-instances/)
-
-Advisor will also notify you of reserved instances that you have that will expire in the next 30 days. It will recommend that you purchase new reserved instances to avoid paying pay-as-you-go pricing.
-
-## Delete unassociated public IP addresses to save money
-
-Advisor identifies public IP addresses that are not currently associated to Azure resources such as Load Balancers or VMs. These public IP addresses come with a nominal charge. If you do not plan to use them, deleting them can result in cost savings.
-
-## Delete Azure Data Factory pipelines that are failing
-
-Azure Advisor will detect Azure Data Factory pipelines that repeatedly fail and recommend that you resolve the issues or delete the failing pipelines if they are no longer needed. You will be billed for these pipelines even if though they are not serving you while they are failing. 
-
-## Use Standard Snapshots for Managed Disks
-To save 60% of cost, we recommend storing your snapshots in Standard Storage, regardless of the storage type of the parent disk. This option is the default option for Managed Disks snapshots. Azure Advisor will identify snapshots that are stored Premium Storage and recommend migrating your snapshot from Premium to Standard Storage. [Learn more about Managed Disk pricing](https://aka.ms/aa_manageddisksnapshot_learnmore)
-
-## How to access Cost recommendations in Azure Advisor
-
-1. Sign in to the [Azure portal](https://portal.azure.com).
+1. Sign in to the [**Azure portal**](https://portal.azure.com).
 
 1. Search for and select [**Advisor**](https://aka.ms/azureadvisordashboard) from any page.
 
 1. On the **Advisor** dashboard, select the **Cost** tab.
 
+## Optimize virtual machine spend by resizing or shutting down underutilized instances 
+
+Although certain application scenarios can result in low utilization by design, you can often save money by managing the size and number of your virtual machines. 
+
+Advisor uses machine-learning algorithms to identify low utilization and to identify the ideal recommendation to ensure optimal usage of virtual machines. The recommended actions are shut down or resize, specific to the resource being evaluated.
+
+### Shutdown recommendations
+
+Advisor identifies resources that have not been used at all over the last 7 days and makes a recommendation to shut them down. 
+
+-	Metrics considered are CPU and Outbound Network utilization (memory is not considered for shutdown recommendations since we’ve found that relying on CPU and Network provide enough signals for this recommendation)
+- The last 7 days of utilization data are considered
+- Metrics are sampled every 30 seconds, aggregated to 1 min and then further aggregated to 30 mins (we take the average of max values while aggregating to 30 mins)
+- A shutdown recommendation is created if: 
+  - P95th of the maximum value of CPU utilization summed across all cores is less than 3%.
+  - P100 of average CPU in last 3 days (sum over all cores) <= 2%   
+  - Outbound Network utilization is less than 2% over a seven-day period.
+
+### Resize SKU recommendations
+
+Advisor considers resizing virtual machines when it's possible to fit the current load on a more appropriate SKU, which costs less than the current one (we currently consider retail rates only during recommendation generation). 
+
+-	Metrics considered are CPU, Memory and Outbound Network utilization 
+- The last 7 days of utilization data are considered
+- Metrics are sampled every 30 seconds, aggregated to 1 min and then further aggregated to 30 mins (we take the average of max values while aggregating to 30 mins)
+- An appropriate SKU is determined based on the following criteria:
+  - Performance of the workloads on the new SKU should not be impacted. 
+    - Target for user-facing workloads: 
+      - P95 of CPU and Outbound Network utilization at 40% or lower on the recommended SKU 
+      - P100 of Memory utilization at 60% or lower on the recommended SKU
+    - Target for non user-facing workloads: 
+      - P95 of the CPU and Outbound Network utilization at 80% or lower on the new SKU
+      - P100 of Memory utilization at 80% or lower on the new SKU 
+  - The new SKU has the same Accelerated Networking and Premium Storage capabilities 
+  - The new SKU is supported in the current region of the Virtual Machine with the recommendation
+  - The new SKU is less expensive 
+- Advisor determines the type of workload (user-facing/non user-facing) by analyzing the CPU utilization characteristics of the workload. This is based on some fascinating findings by Microsoft Research. You can find more details here: [Prediction-Based Power Oversubscription in Cloud Platforms - Microsoft Research](https://www.microsoft.com/research/publication/prediction-based-power-oversubscription-in-cloud-platforms/).
+- Advisor recommends not just smaller SKUs in the same family (for example D3v2 to D2v2) but also SKUs in a newer version (for example D3v2 to D2v3) or even a completely different family (for example D3v2 to E3v2) based on the best fit and the cheapest costs with no performance impacts. 
+
+### Burstable recommendations
+
+This is a special type of resize recommendation, where Advisor analyzes workloads to determine eligibility to run on specialized SKUs called Burstable SKUs that allow for variable workload performance requirements and are generally cheaper than general purpose SKUs. Learn more about burstable SKUs here: [B-series burstable - Azure Virtual Machines](../virtual-machines/sizes-b-series-burstable.md).
+
+- A burstable SKU recommendation is made if:
+- The average CPU utilization is less than a burstable SKUs' baseline performance
+  - If the P95 of CPU is less than two times the burstable SKUs' baseline performance
+  - If the current SKU does not have accelerated networking enabled (burstable SKUs don’t support accelerated networking yet)
+  - If we determine that the Burstable SKU credits are sufficient to support the average CPU utilization over 7 days
+- The result is a recommendation suggesting that the user resize their current VM to a burstable SKU (with the same number of cores) to take advantage of the low costs and the fact that the workload has low average utilization but high spikes in cases, which can be best served by the B-series SKU. 
+ 
+Advisor shows the estimated cost savings for either recommended action: resize or shut down. For resize, Advisor provides current and target SKU information.
+To be more selective about the actioning on underutilized virtual machines, you can adjust the CPU utilization rule on a per-subscription basis.
+
+There are cases where the recommendations cannot be adopted or might not be applicable, such as some of these common scenarios (there may be other cases):
+- Virtual machine has been provisioned to accommodate upcoming traffic
+- Virtual machine uses other resources not considered by the resize algo, i.e. metrics other than CPU, Memory and Network
+- Specific testing being done on the current SKU, even if not utilized efficiently
+- Need to keep VM SKUs homogeneous 
+- VM being utilized for disaster recovery purposes
+
+In such cases simply use the Dismiss/Postpone options associated with the recommendation. 
+
+We are constantly working on improving these recommendations. Feel free to share feedback on [Advisor Forum](https://aka.ms/advisorfeedback).
+
 ## Next steps
 
 To learn more about Advisor recommendations, see:
+* [Advisor cost recommendations (full list)](advisor-reference-cost-recommendations.md)
 * [Introduction to Advisor](advisor-overview.md)
-* [Get Started](advisor-get-started.md)
-* [Advisor Performance recommendations](advisor-performance-recommendations.md)
-* [Advisor High Availability recommendations](advisor-high-availability-recommendations.md)
-* [Advisor Security recommendations](advisor-security-recommendations.md)
-* [Advisor Operational Excellence recommendations](advisor-operational-excellence-recommendations.md)
+* [Advisor score](azure-advisor-score.md)
+* [Get started with Advisor](advisor-get-started.md)
+* [Advisor performance recommendations](advisor-reference-performance-recommendations.md)
+* [Advisor reliability recommendations](advisor-reference-reliability-recommendations.md)
+* [Advisor security recommendations](advisor-security-recommendations.md)
+* [Advisor operational excellence recommendations](advisor-reference-operational-excellence-recommendations.md)

@@ -1,10 +1,11 @@
 ﻿---
 title: Servers - Azure Database for PostgreSQL - Single Server
 description: This article provides considerations and guidelines for configuring and managing Azure Database for PostgreSQL - Single Server.
-author: rachel-msft
-ms.author: raagyema
 ms.service: postgresql
+ms.subservice: single-server
 ms.topic: conceptual
+ms.author: sunila
+author: sunilagarwal
 ms.date: 5/6/2019
 ---
 # Azure Database for PostgreSQL - Single Server
@@ -30,7 +31,7 @@ Within an Azure Database for PostgreSQL server, you can create one or multiple d
 ## How do I connect and authenticate to an Azure Database for PostgreSQL server?
 The following elements help ensure safe access to your database:
 
-|||
+|Security concept|Description|
 |:--|:--|
 | **Authentication and authorization** | Azure Database for PostgreSQL server supports native PostgreSQL authentication. You can connect and authenticate to server with the server's admin login. |
 | **Protocol** | The service supports a message-based protocol used by PostgreSQL. |

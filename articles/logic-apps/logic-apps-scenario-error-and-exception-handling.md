@@ -1,11 +1,11 @@
 ---
 title: Exception handling & error logging scenario
-description: Real use case and scenario for advanced exception handling and error logging in Azure Logic Apps
+description: Advanced exception handling and error logging in Azure Logic Apps.
 services: logic-apps
 ms.suite: integration
 author: hedidin
-ms.reviewer: klam, estfan, logicappspm
-ms.topic: article
+ms.reviewer: estfan, azla
+ms.topic: how-to
 ms.date: 07/29/2016
 ---
 
@@ -117,15 +117,15 @@ Logic App Designer.
 
    **Insert log entry**
 
-   ![Insert Log Entry](media/logic-apps-scenario-error-and-exception-handling/lognewpatient.png)
+   ![Screenshot from Logic App Designer showing the configuration settings for InsertLogEntry.](media/logic-apps-scenario-error-and-exception-handling/lognewpatient.png)
 
    **Insert error entry**
 
-   ![Insert Log Entry](media/logic-apps-scenario-error-and-exception-handling/insertlogentry.png)
+   ![Screenshot from Logic App Designer showing the configuration settings for CreateErrorRecord.](media/logic-apps-scenario-error-and-exception-handling/insertlogentry.png)
 
    **Check for create record failure**
 
-   ![Condition](media/logic-apps-scenario-error-and-exception-handling/condition.png)
+   ![Screenshot of the CreateErrorRecord screen in the Logic App Designer showing the fields for creating an error entry.](media/logic-apps-scenario-error-and-exception-handling/condition.png)
 
 ## Logic app source code
 
@@ -509,5 +509,5 @@ The source code for the Logic Apps exception management API application is avail
 ## Next steps
 
 * [View more logic app examples and scenarios](../logic-apps/logic-apps-examples-and-scenarios.md)
-* [Learn about monitoring logic apps](../logic-apps/logic-apps-monitor-your-logic-apps.md)
+* [Monitor logic apps](../logic-apps/monitor-logic-apps.md)
 * [Automate logic app deployment](../logic-apps/logic-apps-azure-resource-manager-templates-overview.md)

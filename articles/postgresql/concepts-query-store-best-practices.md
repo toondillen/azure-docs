@@ -1,10 +1,11 @@
 ---
 title: Query Store best practices in Azure Database for PostgreSQL - Single Server
 description: This article describes best practices for the Query Store in Azure Database for PostgreSQL - Single Server.
-author: rachel-msft
-ms.author: raagyema
 ms.service: postgresql
+ms.subservice: single-server
 ms.topic: conceptual
+ms.author: sunila
+author: sunilagarwal
 ms.date: 5/6/2019
 ---
 

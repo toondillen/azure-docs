@@ -11,7 +11,7 @@ ms.custom: H1Hack27Feb2017
 ---
 # Deploy StorSimple Virtual Array - Prepare the Azure portal
 
-![](./media/storsimple-virtual-array-deploy1-portal-prep/getstarted4.png)
+![Diagram showing the steps that are needed to deploy a virtual array. The first step is labeled Get started and is highlighted.](./media/storsimple-virtual-array-deploy1-portal-prep/getstarted4.png)
 
 
 ## Overview
@@ -137,7 +137,7 @@ This step is optional and should be performed only if you did not enable the aut
 
 If you need to create an Azure storage account in a different region, see [How to create a storage account](../storage/common/storage-account-create.md) for step-by-step instructions.
 
-Perform the following steps in the [Azure portal](https://ms.portal.azure.com/) on the StorSimple Device Manager service page to add an existing Microsoft Azure storage account.
+Perform the following steps in the [Azure portal](https://portal.azure.com/) on the StorSimple Device Manager service page to add an existing Microsoft Azure storage account.
 
 #### To add a storage account credential that has the same Azure subscription as the Device Manager service
 

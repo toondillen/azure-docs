@@ -8,14 +8,19 @@ manager: cpoulain
 ms.service: cognitive-services
 ms.subservice: speech-service
 ms.topic: quickstart
-ms.date: 01/16/2020
+ms.date: 06/25/2020
 ms.author: ralphe
 zone_pivot_groups: programming-languages-set-nine
+ms.devlang: cpp, csharp
+ms.custom: cogserv-non-critical-speech, devx-track-csharp, mode-other
 ---
 
 # Quickstart: Multi-device Conversation
 
 [!INCLUDE [Header](../includes/quickstarts/multi-device-conversation/header.md)]
+
+> [!NOTE]
+> The Speech SDK for Java, JavaScript, Objective-C, and Swift support Multi-device Conversation, but we haven't yet included a guide here. 
 
 ::: zone pivot="programming-language-csharp"
 [!INCLUDE [Header](../includes/quickstarts/multi-device-conversation/csharp/header.md)]

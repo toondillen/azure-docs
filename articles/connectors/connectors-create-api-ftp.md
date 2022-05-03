@@ -1,10 +1,10 @@
 ---
 title: Connect to FTP server
-description: Automate tasks and workflows that create, monitor, and manage files on an FTP server by using Azure Logic Apps
+description: Automate tasks and workflows that create, monitor, and manage files on an FTP server by using Azure Logic Apps.
 services: logic-apps
 ms.suite: integration
-ms.reviewer: klam, logicappspm
-ms.topic: conceptual
+ms.reviewer: estfan, azla
+ms.topic: how-to
 ms.date: 12/15/2019
 tags: connectors
 ---
@@ -22,7 +22,7 @@ You can use triggers that get responses from your FTP server and make the output
 
 ## Limitations
 
-* The FTP connector supports only explicit FTP over SSL (FTPS) and isn't compatible with implicit FTPS.
+* The FTP connector supports only explicit FTP over TLS/SSL (FTPS) and isn't compatible with implicit FTPS.
 
 * By default, FTP actions can read or write files that are *50 MB or smaller*. To handle files larger than 50 MB, FTP actions support [message chunking](../logic-apps/logic-apps-handle-large-messages.md). The **Get file content** action implicitly uses chunking.
 
@@ -48,7 +48,7 @@ When a trigger finds a new file, the trigger checks that the new file is complet
 
 ## Prerequisites
 
-* An Azure subscription. If you don't have an Azure subscription, [sign up for a free Azure account](https://azure.microsoft.com/free/).
+* An Azure account and subscription. If you don't have an Azure subscription, [sign up for a free Azure account](https://azure.microsoft.com/free/?WT.mc_id=A261C142F).
 
 * Your FTP host server address and account credentials
 
@@ -166,8 +166,13 @@ To check that your workflow returns the content that you expect, add another act
 
 ## Connector reference
 
-For technical details about triggers, actions, and limits, which are described by the connector's OpenAPI (formerly Swagger) description, review the [connector's reference page](/connectors/ftpconnector/).
+For more technical details about this connector, such as triggers, actions, and limits as described by the connector's Swagger file, see the [connector's reference page](/connectors/ftpconnector/).
+
+> [!NOTE]
+> For logic apps in an [integration service environment (ISE)](../logic-apps/connect-virtual-network-vnet-isolated-environment-overview.md), 
+> this connector's ISE-labeled version uses the [ISE message limits](../logic-apps/logic-apps-limits-and-config.md#message-size-limits) instead.
 
 ## Next steps
 
 * Learn about other [Logic Apps connectors](../connectors/apis-list.md)
+

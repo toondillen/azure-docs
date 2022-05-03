@@ -1,21 +1,21 @@
 ---
-title: Connect to SFTP account
-description: Automate tasks and processes that monitor, create, manage, send, and receive files for an SFTP server through SSH by using Azure Logic Apps
+title: Connect to SFTP account (Deprecated)
+description: Automate tasks and processes that monitor, create, manage, send, and receive files for an SFTP server using Azure Logic Apps.
 services: logic-apps
 ms.suite: integration
 author: divyaswarnkar
-ms.reviewer: divswa, klam, logicappspm
-ms.topic: article
+ms.reviewer: estfan, azla
+ms.topic: how-to
 ms.date: 11/01/2019
 tags: connectors
+ROBOTS: NOINDEX
 ---
 
-# Monitor, create, and manage SFTP files by using Azure Logic Apps
+# Monitor, create, and manage SFTP files in Azure Logic Apps
 
 > [!IMPORTANT]
-> Please use the [SFTP-SSH connector](../connectors/connectors-sftp-ssh.md) 
-> as the SFTP connector is deprecated. You can no longer select SFTP 
-> triggers and actions in the Logic App Designer.
+> Please use the [SFTP-SSH connector](../connectors/connectors-sftp-ssh.md) as the SFTP connector is deprecated. You can no longer select SFTP 
+> triggers and actions in the workflow designer.
 
 To automate tasks that monitor, create, send, and receive files on a [Secure File Transfer Protocol (SFTP)](https://www.ssh.com/ssh/sftp/) server, you can build and automate integration workflows by using Azure Logic Apps and the SFTP connector. SFTP is a network protocol that provides file access, file transfer, and file management over any reliable data stream. Here are some example tasks you can automate:
 
@@ -32,7 +32,7 @@ The SFTP connector handles only files that are *50 MB or smaller* and doesn't su
 
 ## Prerequisites
 
-* An Azure subscription. If you don't have an Azure subscription, [sign up for a free Azure account](https://azure.microsoft.com/free/).
+* An Azure account and subscription. If you don't have an Azure subscription, [sign up for a free Azure account](https://azure.microsoft.com/free/?WT.mc_id=A261C142F).
 
 * Your SFTP server address and account credentials, which let your logic app access your SFTP account. To use the [Secure Shell (SSH)](https://www.ssh.com/ssh/protocol/) protocol, you also need access to an SSH private key and the SSH private key password.
 
@@ -111,8 +111,7 @@ When a trigger finds a new file, the trigger checks that the new file is complet
 
 ### SFTP trigger: When a file is added or modified
 
-This trigger starts a logic app workflow when a file is added or changed on an SFTP server. For example, you can add a condition that checks the file's content and gets the content based on whether the content meets a specified condition. 
-You can then add an action that gets the file's content, and puts that content in a folder on the SFTP server.
+This trigger starts a logic app workflow when a file is added or changed on an SFTP server. For example, you can add a condition that checks the file's content and gets the content based on whether the content meets a specified condition. You can then add an action that gets the file's content, and puts that content in a folder on the SFTP server.
 
 **Enterprise example**: You can use this trigger to monitor an SFTP folder for new files that represent customer orders. You can then use an SFTP action such as **Get file content** so you get the order's contents for further processing and store that order in an orders database.
 
@@ -124,7 +123,7 @@ This action gets the content from a file on an SFTP server. So for example, you 
 
 ## Connector reference
 
-For technical details about triggers, actions, and limits, which are described by the connector's OpenAPI (formerly Swagger) description, review the connector's [reference page](/connectors/sftpconnector/).
+For technical details about triggers, actions, and limits, which are described by the connector's OpenAPI (formerly Swagger) description, review the connector's [reference page](../data-factory/connector-sftp.md).
 
 ## Next steps
 

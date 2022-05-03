@@ -3,7 +3,7 @@ title: Error handling in Azure API Management policies | Microsoft Docs
 description: Learn how to respond to error conditions that may occur during the processing of requests in Azure API Management.
 services: api-management
 documentationcenter: ''
-author: vladvino
+author: dlepow
 manager: erikre
 editor: ''
 
@@ -13,7 +13,7 @@ ms.workload: mobile
 ms.tgt_pltfrm: na
 ms.topic: article
 ms.date: 01/10/2020
-ms.author: apimpm
+ms.author: danlep
 ---
 
 # Error handling in API Management policies
@@ -26,20 +26,20 @@ Policies in Azure API Management are divided into `inbound`, `backend`, `outboun
 
 ```xml
 <policies>
-  <inbound>
-    <!-- statements to be applied to the request go here -->
-  </inbound>
-  <backend>
-    <!-- statements to be applied before the request is
-         forwarded to the backend service go here -->
+    <inbound>
+        <!-- statements to be applied to the request go here -->
+    </inbound>
+    <backend>
+        <!-- statements to be applied before the request is
+             forwarded to the backend service go here -->
     </backend>
     <outbound>
-      <!-- statements to be applied to the response go here -->
+        <!-- statements to be applied to the response go here -->
     </outbound>
     <on-error>
         <!-- statements to be applied if there is an error
              condition go here -->
-  </on-error>
+    </on-error>
 </policies>
 ```
 
@@ -47,7 +47,7 @@ During the processing of a request, built-in steps are executed along with any p
 The `on-error` policy section can be used at any scope. API publishers can configure custom behavior such as logging the error to event hubs or creating a new response to return to the caller.
 
 > [!NOTE]
-> The `on-error` section is not present in policies by default. To add the `on-error` section to a policy, browse to the desired policy in the policy editor and add it. For more information about configuring policies, see [Policies in API Management](https://azure.microsoft.com/documentation/articles/api-management-howto-policies/).
+> The `on-error` section is not present in policies by default. To add the `on-error` section to a policy, browse to the desired policy in the policy editor and add it. For more information about configuring policies, see [Policies in API Management](./api-management-howto-policies.md).
 >
 > If there is no `on-error` section, callers will receive 400 or 500 HTTP response messages if an error condition occurs.
 
@@ -67,6 +67,10 @@ The following policies can be used in the `on-error` policy section.
 -   [log-to-eventhub](api-management-advanced-policies.md#log-to-eventhub)
 -   [json-to-xml](api-management-transformation-policies.md#ConvertJSONtoXML)
 -   [xml-to-json](api-management-transformation-policies.md#ConvertXMLtoJSON)
+-   [limit-concurrency](api-management-advanced-policies.md#LimitConcurrency)
+-   [mock-response](api-management-advanced-policies.md#mock-response)
+-   [retry](api-management-advanced-policies.md#Retry)
+-   [trace](api-management-advanced-policies.md#Trace)
 
 ## LastError
 
@@ -115,7 +119,7 @@ The following errors are predefined for error conditions that can occur during p
 | ip-filter    | Caller IP is in blocked list                                    | CallerIpBlocked           | Caller IP address is blocked. Access denied.                                                                                         |
 | check-header | Required header not presented or value is missing               | HeaderNotFound            | Header {header-name} was not found in the request. Access denied.                                                                    |
 | check-header | Required header not presented or value is missing               | HeaderValueNotAllowed     | Header {header-name} value of {header-value} is not allowed. Access denied.                                                          |
-| validate-jwt | Jwt token is missing in request                                 | TokenNotFound             | JWT not found in the request. Access denied.                                                                                         |
+| validate-jwt | Jwt token is missing in request                                 | TokenNotPresent             | JWT not present.                                                                                         |
 | validate-jwt | Signature validation failed                                     | TokenSignatureInvalid     | <message from jwt library\>. Access denied.                                                                                          |
 | validate-jwt | Invalid audience                                                | TokenAudienceNotAllowed   | <message from jwt library\>. Access denied.                                                                                          |
 | validate-jwt | Invalid issuer                                                  | TokenIssuerNotAllowed     | <message from jwt library\>. Access denied.                                                                                          |
@@ -181,5 +185,5 @@ For more information working with policies, see:
 
 -   [Policies in API Management](api-management-howto-policies.md)
 -   [Transform APIs](transform-api.md)
--   [Policy Reference](api-management-policy-reference.md) for a full list of policy statements and their settings
--   [Policy samples](policy-samples.md)
+-   [Policy Reference](./api-management-policies.md) for a full list of policy statements and their settings
+-   [Policy samples](./policy-reference.md)

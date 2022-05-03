@@ -1,104 +1,59 @@
 ---
-title: Azure classic deployment model | Microsoft Docs
-description: Azure classic deployment model 
-author: sowmyavenkat86
-ms.author: svenkat
-ms.date: 06/20/2019
-ms.topic: article
-ms.service: azure-supportability
-ms.assetid: ce37c848-ddd9-46ab-978e-6a1445728a3b
-
+title: Increase a VM-family vCPU quota for the Classic deployment model
+description: The Classic deployment model, now superseded by the Resource Manager model, enforces a global vCPU quota limit for VMs and virtual machine scale sets.
+ms.date: 12/02/2021
+ms.topic: how-to
 ---
 
-# Classic Deployment Model
+# Increase a VM-family vCPU quota for the Classic deployment model
 
-The Classic deployment model is the older generation Azure deployment model. It enforces a global vCPU quota limit for virtual machines and virtual machine scale sets. The Classic deployment model is no longer recommended, and is now superseded by the Resource Manager model. 
+The Classic deployment model is the older generation Azure deployment model. It enforces a global vCPU quota limit for virtual machines and virtual machine scale sets. The Classic deployment model is no longer recommended, and is now superseded by the Resource Manager model.
 
-To learn more about these two deployment models and the advantages of using Resource Manager, refer to the [Resource Manager and classic deployment](../../azure-resource-manager/management/deployment-models.md) page.
- 
-When a new subscription is created, a default quota of vCPUs is assigned to it. Anytime a new VM is to be deployed using the Classic deployment model, the sum of new and existing vCPU usage across all regions must not exceed the vCPU quota approved for the Classic deployment model.
- 
-Learn more about quotas on the [Azure subscription and service limits](https://aka.ms/quotalimits) page.
+To learn more about these two deployment models and the advantages of using Resource Manager, see [Resource Manager and classic deployment](../../azure-resource-manager/management/deployment-models.md).
 
-You can request an increase in the vCPU quota limit for the Classic deployment model via the 'Help + Support' blade or the 'Usages + Quota' blade in the portal.
+When a new subscription is created, a default quota of vCPUs is assigned to it. Any time a new virtual machine is deployed using the Classic deployment model, the sum of new and existing vCPU usage across all regions must not exceed the vCPU quota approved for the Classic deployment model.
 
-## Request per VM Series vCPU quota increase at subscription level using the **Help + Support** blade
+You can request vCPU quota increases for the Classic deployment model in the Azure portal by using **Help + support** or **Usage + quotas**.
 
-Follow the instructions below to create a support request via Azure's 'Help + Support' blade available in the Azure portal. 
+## Request quota increase for the Classic deployment model using Help + support
 
-1. From https://portal.azure.com, select **Help + Support**.
+Follow the instructions below to create a vCPU quota increase request for the Classic deployment model by using **Help + support** in the Azure portal.
 
-   ![Help + Support](./media/resource-manager-core-quotas-request/helpsupport.png)
- 
-2.  Select **New support request**. 
+1. Sign in to the [Azure portal](https://portal.azure.com), and [open a new support request](how-to-create-azure-support-request.md).
 
-      ![New support request](./media/resource-manager-core-quotas-request/newsupportrequest.png)
+1. For **Issue type**, choose **Service and subscription limits (quotas)**.
 
-3. In the Issue type dropdown, choose **Service and subscription limits (quotas)**.
+1. Select the subscription that needs an increased quota.
 
-   ![Issue type dropdown](./media/resource-manager-core-quotas-request/issuetypedropdown.png)
+1. For **Quota type**, select **Compute-VM (cores-vCPUs) subscription limit increases**. Then select **Next**.
 
-4. Select the subscription that needs an increased quota.
+   :::image type="content" source="media/resource-manager-core-quotas-request/new-per-vm-quota-request.png" alt-text="Screenshot showing a support request to increase a VM-family vCPU quota in the Azure portal.":::
 
-   ![Select subscription newSR](./media/resource-manager-core-quotas-request/select-subscription-sr.png)
-   
-5. Select **Compute -VM (cores-vCPUs) subscription  limit increases** in **quota type** dropdown. 
+1. In the **Problem details** section, select **Enter details**. For deployment model, select **Classic**, then select a location.
 
-   ![Select quota type](./media/resource-manager-core-quotas-request/select-quota-type.png)
+1. For **SKU family**, select one or more SKU families to increase.
 
-6. In **Problem Details**, provide additional information to help process your request by clicking **Provide details**.
+1. Enter the new limits you would like on the subscription. When you're finished, select **Save and continue** to continue creating your support request.
 
-   ![Provide details](./media/resource-manager-core-quotas-request/provide-details.png)
+1. Complete the rest of the **Additional information** screen, and then select **Next**.
 
-7. In the **Quota details** panel, select Classic and select a location.
+1. On the **Review + create** screen, review the details that you'll send to support, and then select **Create**.
 
-   ![Quota Details DM](./media/resource-manager-core-quotas-request/quota-details-classic.png)
+## Request quota increase for the Classic deployment model from Usage + quotas
 
-8. Select the **SKU families** that require an increase. 
+Follow the instructions below to create a vCPU quota increase request for the Classic deployment model from **Usage + quotas** in the Azure portal.
 
-   ![SKU Family](./media/resource-manager-core-quotas-request/sku-family-classic.png)
+1. From https://portal.azure.com, search for and select **Subscriptions**.
 
-9. Enter the new limits you would like on the subscription. To remove a line, uncheck the SKU from the SKU family dropdown or click the discard "x" icon. After entering the desired quota for each SKU family, click **Save and Continue** on the Quota details panel to continue with the support request creation.
+1. Select the subscription that needs an increased quota.
 
-   ![New Limits](./media/resource-manager-core-quotas-request/new-limits-classic.png)
+1. Select **Usage + quotas**.
 
-## Request per VM Series vCPU quota increase at subscription level using **Usages + Quota** blade
+1. In the upper right corner, select **Request increase**.
 
-Follow the instructions below using to create a support request via Azure's 'Usage + quota' blade available in the Azure portal. 
+1. Follow the steps above (starting at step 4) to complete your request.
 
-1. From https://portal.azure.com, select **Subscriptions**.
+## Next steps
 
-   ![Subscriptions](./media/resource-manager-core-quotas-request/subscriptions.png)
-
-2. Select the subscription that needs an increased quota.
-
-   ![Select subscription](./media/resource-manager-core-quotas-request/select-subscription.png)
-
-3. Select **Usage + quotas**
-
-   ![Select usage and quotas](./media/resource-manager-core-quotas-request/select-usage-quotas.png)
-
-4. In the upper right corner, select **Request increase**.
-
-   ![Request increase](./media/resource-manager-core-quotas-request/request-increase.png)
-
-5. Select **Compute-VM (cores-vCPUs) subscription limit increases** as the quote type. 
-
-   ![Fill in form](./media/resource-manager-core-quotas-request/select-quota-type.png)
-   
-6. In **Problem Details**, provide additional information to help process your request by clicking **Provide details**.
-
-   ![Provide details](./media/resource-manager-core-quotas-request/provide-details.png)
-
-7. In the **Quota details** panel, select Classic and select a location.
-
-   ![Quota Details DM](./media/resource-manager-core-quotas-request/quota-details-classic.png)
-
-8. Select the **SKU families** that require an increase. 
-
-   ![SKU Family](./media/resource-manager-core-quotas-request/sku-family-classic.png)
-
-9. Enter the new limits you would like on the subscription. To remove a line, uncheck the SKU from the SKU family dropdown or click the discard "x" icon. After entering the desired quota for each SKU family, click **Save and Continue** on the Quota details panel to continue with the support request creation.
-
-   ![New Limits](./media/resource-manager-core-quotas-request/new-limits-classic.png)
-
+- Learn about [Azure subscription and service limits, quotas, and constraints](../../azure-resource-manager/management/azure-subscription-service-limits.md).
+- Learn about the advantages of using the [Resource Manager deployment model](../../azure-resource-manager/management/deployment-models.md).

@@ -4,22 +4,12 @@ titleSuffix: Azure Cognitive Search
 description: Formal grammar and syntax specification for OData expressions in Azure Cognitive Search queries.
 
 manager: nitinme
-author: brjohnstmsft
-ms.author: brjohnst
+author: bevloh
+ms.author: beloh
 ms.service: cognitive-search
-ms.topic: conceptual
-ms.date: 11/04/2019
-translation.priority.mt:
-  - "de-de"
-  - "es-es"
-  - "fr-fr"
-  - "it-it"
-  - "ja-jp"
-  - "ko-kr"
-  - "pt-br"
-  - "ru-ru"
-  - "zh-cn"
-  - "zh-tw"
+ms.topic: reference
+ms.date: 09/16/2021
+
 ---
 # OData expression syntax reference for Azure Cognitive Search
 
@@ -212,6 +202,6 @@ To visually explore the OData language grammar supported by Azure Cognitive Sear
 ## See also  
 
 - [Filters in Azure Cognitive Search](search-filters.md)
-- [Search Documents &#40;Azure Cognitive Search REST API&#41;](https://docs.microsoft.com/rest/api/searchservice/Search-Documents)
+- [Search Documents &#40;Azure Cognitive Search REST API&#41;](/rest/api/searchservice/Search-Documents)
 - [Lucene query syntax](query-lucene-syntax.md)
 - [Simple query syntax in Azure Cognitive Search](query-simple-syntax.md)
